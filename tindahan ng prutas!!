@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 void displayPriceList() {
@@ -83,21 +85,27 @@ void displayBestSellers() {
 
 int main() {
     cout << "*******************************************************\n";
-    cout << "*     TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES      *\n";
-    cout << "*                    MANILA CAMPUS                    *\n";
-    cout << "*                                                     *\n";
-    cout << "*                    CAMPFRUITS                       *\n";
-    cout << "*                    ORDERING SYSTEM                  *\n";
-    cout << "*                                                     *\n";
-    cout << "* Members: Amba, James Ryan T. - BSCS                 *\n";
-    cout << "* Members: Castro, Rafaella Feroza P. - BSCS          *\n";
-    cout << "* Members: Javier, Kassidy Glean - BSCS               *\n";
-    cout << "* Instructor: Mr. Joseph Domingo                      *\n";
+    cout << "*       TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES     *\n";
+    cout << "*                    MANILA CAMPUS                     *\n";
+    cout << "*                                                      *\n";
+    cout << "*       CITE 002 - Computer Programming 1              *\n";
+    cout << "*       1st Semester S.Y. 2024-2025                    *\n";
+    cout << "*                                                      *\n";
+    cout << "*                   Final Project                      *\n";
+    cout << "*                   Title: CampFruits                  *\n";
+    cout << "*                                                      *\n";
+    cout << "*       Amba, James Ryan T. - BSCS                     *\n";
+    cout << "*       Castro, Rafaella Feroza P. - BSCS              *\n";
+    cout << "*       Javier, Kassidy Glean - BSCS                   *\n";
+    cout << "*                                                      *\n";
+    cout << "*       Instructor: Mr. Joseph Domingo                 *\n";
     cout << "*******************************************************\n";
 
     int transactionChoice, item, quantity;
     int totalItems = 0, totalPrice = 0;
-    int budget = 500;
+    int budget = 1500;
+    vector<string> purchasedItems;
+    vector<int> purchasedQuantities;
 
     cout << "--- Welcome to CampFruits ---" << endl;
     cout << "Your starting budget is: ₱" << budget << endl;
@@ -125,7 +133,7 @@ int main() {
 
         if (transactionChoice == 1) {
             displayPriceList();
-        } 
+        }
         else if (transactionChoice == 2) {
             displayPriceList();
             cout << "Select an item (1-15): ";
@@ -160,22 +168,46 @@ int main() {
             totalItems += quantity;
             totalPrice += price;
 
+            // Store the product name and quantity
+            string productName;
+            switch(item) {
+                case 1: productName = "Premium Champion Apple"; break;
+                case 2: productName = "Guang Long Dragon Apple"; break;
+                case 3: productName = "Golden Mountain Apple"; break;
+                case 4: productName = "Sunkist Orange"; break;
+                case 5: productName = "Safro Orange"; break;
+                case 6: productName = "Pampa Orange"; break;
+                case 7: productName = "JC Seedless (Crimson Grapes)"; break;
+                case 8: productName = "Green Muscat (Green Grapes)"; break;
+                case 9: productName = "ABC Linlin (Black Grapes)"; break;
+                case 10: productName = "ABC Linlin Pears"; break;
+                case 11: productName = "Hong Du Pears"; break;
+                case 12: productName = "Korean Pears"; break;
+                case 13: productName = "Kiwi"; break;
+                case 14: productName = "Lemon"; break;
+                case 15: productName = "Persimmon"; break;
+            }
+            purchasedItems.push_back(productName);
+            purchasedQuantities.push_back(quantity);
+
             applyBundleOffer(item, quantity);
 
             cout << "Item added to cart. Price: ₱" << price << ". Remaining budget: ₱" << budget << endl;
-        } 
+        }
         else if (transactionChoice == 3) {
             displayBestSellers();
-        } 
+        }
         else if (transactionChoice == 4) {
             displayFruitBundle();
-        } 
+        }
         else if (transactionChoice == 5) {
             if (totalItems == 0) {
                 cout << "No items purchased. Thank you for visiting!" << endl;
             } else {
                 cout << "------------------ Receipt ------------------" << endl;
-                cout << "Total Items: " << totalItems << " kg" << endl;
+                for (size_t i = 0; i < purchasedItems.size(); ++i) {
+                    cout << purchasedItems[i] << " - " << purchasedQuantities[i] << " kg" << endl;
+                }
                 cout << "Total Price: ₱" << totalPrice << endl;
                 cout << "Remaining Budget: ₱" << budget << endl;
                 cout << "--------------------------------------------" << endl;
@@ -189,6 +221,8 @@ int main() {
             if (anotherTransaction == 'y' || anotherTransaction == 'Y') {
                 totalItems = 0;
                 totalPrice = 0;
+                purchasedItems.clear();
+                purchasedQuantities.clear();
             } else {
                 cout << "\nThank you for your transaction! We hope to see you again soon!" << endl;
                 break;
@@ -198,3 +232,4 @@ int main() {
 
     return 0;
 }
+
