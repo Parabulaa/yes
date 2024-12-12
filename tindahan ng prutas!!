@@ -1,0 +1,200 @@
+#include <iostream>
+using namespace std;
+
+void displayPriceList() {
+    cout << "------------------ Price List ------------------" << endl;
+    cout << "\n-- Apples --" << endl;
+    cout << "1. Premium Champion Apple     - ₱120/kg" << endl;
+    cout << "2. Guang Long Dragon Apple    - ₱110/kg" << endl;
+    cout << "3. Golden Mountain Apple      - ₱130/kg" << endl;
+    cout << "\n-- Oranges --" << endl;
+    cout << "4. Sunkist Orange            - ₱60/kg" << endl;
+    cout << "5. Safro Orange              - ₱55/kg" << endl;
+    cout << "6. Pampa Orange              - ₱65/kg" << endl;
+    cout << "\n-- Grapes --" << endl;
+    cout << "7. JC Seedless (Crimson Grapes) - ₱80/kg" << endl;
+    cout << "8. Green Muscat (Green Grapes) - ₱70/kg" << endl;
+    cout << "9. ABC Linlin (Black Grapes)  - ₱90/kg" << endl;
+    cout << "\n-- Pears --" << endl;
+    cout << "10. ABC Linlin Pears         - ₱100/kg" << endl;
+    cout << "11. Hong Du Pears            - ₱120/kg" << endl;
+    cout << "12. Korean Pears             - ₱130/kg" << endl;
+    cout << "\n-- Assorted --" << endl;
+    cout << "13. Kiwi                     - ₱150/kg" << endl;
+    cout << "14. Lemon                    - ₱40/kg" << endl;
+    cout << "15. Persimmon                - ₱180/kg" << endl;
+    cout << "------------------------------------------------" << endl;
+}
+
+int calculatePrice(int item, int quantity) {
+    if (item == 1) return 120 * quantity;
+    if (item == 2) return 110 * quantity;
+    if (item == 3) return 130 * quantity;
+    if (item == 4) return 60 * quantity;
+    if (item == 5) return 55 * quantity;
+    if (item == 6) return 65 * quantity;
+    if (item == 7) return 80 * quantity;
+    if (item == 8) return 70 * quantity;
+    if (item == 9) return 90 * quantity;
+    if (item == 10) return 100 * quantity;
+    if (item == 11) return 120 * quantity;
+    if (item == 12) return 130 * quantity;
+    if (item == 13) return 150 * quantity;
+    if (item == 14) return 40 * quantity;
+    if (item == 15) return 180 * quantity;
+    return 0;
+}
+
+void applyBundleOffer(int &item, int &quantity) {
+    if (item == 4 || item == 5 || item == 6) {
+        if (quantity >= 2) {
+            cout << "\n** Bundle Offer: Buy 2 Oranges and Get 1 Free! **" << endl;
+            int freeFruit = rand() % 3 + 13;
+            cout << "You get a free fruit! Here's your free fruit option: " << endl;
+            cout << "1. Kiwi\n2. Lemon\n3. Persimmon" << endl;
+            cout << "Your free fruit is: ";
+            switch (freeFruit) {
+                case 13: cout << "Kiwi!" << endl; break;
+                case 14: cout << "Lemon!" << endl; break;
+                case 15: cout << "Persimmon!" << endl; break;
+            }
+            cout << "Enjoy your bundle!" << endl;
+        }
+    }
+}
+
+void displayFruitBundle() {
+    cout << "\n--- Bundle Offer ---" << endl;
+    cout << "Buy any 2 Oranges and get 1 of the following fruits for FREE!" << endl;
+    cout << "1. Kiwi - ₱150/kg" << endl;
+    cout << "2. Lemon - ₱40/kg" << endl;
+    cout << "3. Persimmon - ₱180/kg" << endl;
+    cout << "--------------------------------------" << endl;
+}
+
+void displayBestSellers() {
+    cout << "\n--- Best Sellers: Budget-Friendly & Delicious Fruits ---" << endl;
+    cout << "1. Sunkist Orange - ₱60/kg" << endl;
+    cout << "2. Safro Orange   - ₱55/kg" << endl;
+    cout << "3. Premium Champion Apple - ₱120/kg" << endl;
+    cout << "4. Kiwi            - ₱150/kg" << endl;
+    cout << "--------------------------------------------------------" << endl;
+}
+
+int main() {
+    cout << "*******************************************************\n";
+    cout << "*     TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES      *\n";
+    cout << "*                    MANILA CAMPUS                    *\n";
+    cout << "*                                                     *\n";
+    cout << "*                    CAMPFRUITS                       *\n";
+    cout << "*                    ORDERING SYSTEM                  *\n";
+    cout << "*                                                     *\n";
+    cout << "* Members: Amba, James Ryan T. - BSCS                 *\n";
+    cout << "* Members: Castro, Rafaella Feroza P. - BSCS          *\n";
+    cout << "* Members: Javier, Kassidy Glean - BSCS               *\n";
+    cout << "* Instructor: Mr. Joseph Domingo                      *\n";
+    cout << "*******************************************************\n";
+
+    int transactionChoice, item, quantity;
+    int totalItems = 0, totalPrice = 0;
+    int budget = 500;
+
+    cout << "--- Welcome to CampFruits ---" << endl;
+    cout << "Your starting budget is: ₱" << budget << endl;
+
+    while (true) {
+        cout << "\nWhat would you like to do?" << endl;
+        cout << "1. View Price List" << endl;
+        cout << "2. Add Items to Cart" << endl;
+        cout << "3. View Best Sellers" << endl;
+        cout << "4. View Bundle Offer" << endl;
+        cout << "5. Complete Purchase and Exit" << endl;
+        cout << "Enter your choice: ";
+
+        if (!(cin >> transactionChoice)) {
+            cout << "Invalid input. Please select a valid option from the menu!" << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+
+        if (transactionChoice < 1 || transactionChoice > 5) {
+            cout << "Invalid choice. Please select a valid transaction!" << endl;
+            continue;
+        }
+
+        if (transactionChoice == 1) {
+            displayPriceList();
+        } 
+        else if (transactionChoice == 2) {
+            displayPriceList();
+            cout << "Select an item (1-15): ";
+            if (!(cin >> item) || item < 1 || item > 15) {
+                cout << "Invalid item. Please select a valid option!" << endl;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                continue;
+            }
+
+            cout << "Enter quantity (in kg, up to 20kg) or 0 to cancel: ";
+            if (!(cin >> quantity) || quantity < 0 || quantity > 20) {
+                cout << "Invalid quantity! Please enter a valid amount between 1 and 20kg." << endl;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                continue;
+            }
+
+            if (quantity == 0) {
+                cout << "Item addition canceled." << endl;
+                continue;
+            }
+
+            int price = calculatePrice(item, quantity);
+
+            if (price > budget) {
+                cout << "Insufficient funds! You only have ₱" << budget << " remaining." << endl;
+                continue;
+            }
+
+            budget -= price;
+            totalItems += quantity;
+            totalPrice += price;
+
+            applyBundleOffer(item, quantity);
+
+            cout << "Item added to cart. Price: ₱" << price << ". Remaining budget: ₱" << budget << endl;
+        } 
+        else if (transactionChoice == 3) {
+            displayBestSellers();
+        } 
+        else if (transactionChoice == 4) {
+            displayFruitBundle();
+        } 
+        else if (transactionChoice == 5) {
+            if (totalItems == 0) {
+                cout << "No items purchased. Thank you for visiting!" << endl;
+            } else {
+                cout << "------------------ Receipt ------------------" << endl;
+                cout << "Total Items: " << totalItems << " kg" << endl;
+                cout << "Total Price: ₱" << totalPrice << endl;
+                cout << "Remaining Budget: ₱" << budget << endl;
+                cout << "--------------------------------------------" << endl;
+                cout << "Thank you for your purchase!" << endl;
+            }
+
+            char anotherTransaction;
+            cout << "\nWould you like to make another transaction? (y/n): ";
+            cin >> anotherTransaction;
+
+            if (anotherTransaction == 'y' || anotherTransaction == 'Y') {
+                totalItems = 0;
+                totalPrice = 0;
+            } else {
+                cout << "\nThank you for your transaction! We hope to see you again soon!" << endl;
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
